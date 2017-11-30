@@ -1,0 +1,19 @@
+{
+  "name": "paper-review-platform",
+  "version": "1.0.0",
+  "description": "Acedamical Paper Review Application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianKapunkt/paper-review-platform.git"
+  },
+  "author": "Sebastian Kindt, Caglar Özel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SebastianKapunkt/paper-review-platform/issues"
+  },
+  "homepage": "",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "skeleton-css": "^2.0.4"
+  }
+}
