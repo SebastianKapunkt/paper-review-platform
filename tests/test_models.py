@@ -3,7 +3,7 @@ from app.models import User, Author, Paper, Review
 import unittest
 
 
-class MyTest(unittest.TestCase):
+class Test_Models(unittest.TestCase):
 
     def test_relation_user_author(self):
         author = Author()

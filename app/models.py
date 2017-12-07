@@ -1,39 +1,35 @@
-from sqlalchemy import Table, Column, Integer, ForeignKey, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from app import db
 
-Base = declarative_base()
-
-class Author(Base):
+class Author(db.Model):
     __tablename__ = 'authors'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
-    paper_id = Column(Integer, ForeignKey('papers.id'))
-    user = relationship("User", back_populates="authors")
-    paper = relationship("Paper", back_populates="authors")
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    paper_id = db.Column(db.Integer, db.ForeignKey('papers.id'))
+    user = db.relationship("User", back_populates="authors")
+    paper = db.relationship("Paper", back_populates="authors")
 
-class Paper(Base):
+class Paper(db.Model):
     __tablename__ = 'papers'
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    abstrct = Column(String)
-    status = Column(Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    abstract = db.Column(db.String)
+    status = db.Column(db.Integer)
 
-    authors = relationship("Author", back_populates="paper")
-    reviews = relationship("Review", back_populates="paper")
+    authors = db.relationship("Author", back_populates="paper")
+    reviews = db.relationship("Review", back_populates="paper")
 
-class Review(Base):
+class Review(db.Model):
     __tablename__ = 'reviews'
-    id = Column(Integer, primary_key=True)
-    score = Column(Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Integer)
 
-    user_id = Column(Integer, ForeignKey('users.id'))
-    paper_id = Column(Integer, ForeignKey('papers.id'))
-    user = relationship("User", back_populates="reviews")
-    paper = relationship("Paper", back_populates="reviews")
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    paper_id = db.Column(db.Integer, db.ForeignKey('papers.id'))
+    user = db.relationship("User", back_populates="reviews")
+    paper = db.relationship("Paper", back_populates="reviews")
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    authors = relationship("Author", back_populates="user")
-    reviews = relationship("Review", back_populates="user")
+    id = db.Column(db.Integer, primary_key=True)
+    authors = db.relationship("Author", back_populates="user")
+    reviews = db.relationship("Review", back_populates="user")
