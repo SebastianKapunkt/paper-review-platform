@@ -1,0 +1,127 @@
+body {
+  background: white;
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica";
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  width: 100%;
+  background: #f9fafc;
+}
+
+.header > div {
+  width: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav {
+  background: #f9fafc;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav > div {
+  width: 995px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+}
+
+.nav a {
+  color: black;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a:focus {
+  text-decoration: none;
+  color: black;
+}
+
+.nav > div > div {
+  position: relative;
+  border-top: 3px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  top: 1px;
+}
+
+.nav > div > div > a > div {
+  padding: 8px;
+  box-sizing: border-box;
+  color: #aaa;
+  margin-left: 8px;
+  margin-right: 8px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  padding-right: 4px;
+  padding-left: 4px;
+  border-radius: 3px 3px 0 0;
+}
+
+.nav > div > div > a > div:hover {
+  color: black;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-top: 1px solid #dde0e5;
+  height: 100%;
+}
+
+.container {
+  width: 995px;
+  display: flex;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.active {
+  background: white;
+  border-top: 3px solid lightseagreen !important;
+  border-right: 1px solid #dde0e5 !important;
+  border-left: 1px solid #dde0e5 !important;
+  border-radius: 3px 3px 0 0;
+}
+
+.active > a > div {
+  color: black !important;
+}
+
+.header_bar {
+  display: flex;
+  justify-content: center;
+  text-align: right;
+  vertical-align: middle;
+  line-height: 48px;
+  background-color: #222;
+  color: lightgray;
+}
+
+.header_bar > div {
+  width: 980px;
+}
+
+.paper_bar {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  border: 1px solid #dde0e5;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+
+.paper_bar > div {
+  margin: 4px;
+  padding: 8px;
+}

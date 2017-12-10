@@ -1,0 +1,10 @@
+{% extends "paper_bar.html" %}
+{% block paper_content %}
+<div class="container">
+    {% for paper in papers %}
+        {{paper.title}}
+        <br>
+        {{paper.abstract}}
+    {% endfor %}
+</div>
+{% endblock %}

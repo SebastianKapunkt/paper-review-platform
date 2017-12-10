@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 app.config.from_object('app.config')
@@ -11,7 +12,9 @@ with app.app_context():
     db.create_all()
 
 
-from app import user_controller
+from app import user_controller, paper_controller
 user_controller = user_controller.User_Controller()
+paper_controller = paper_controller.Paper_Controller()
 
+from app import url_for
 from app import views

@@ -1,0 +1,24 @@
+{% extends "nav_bar.html" %} {% block content %}
+<div class="container">
+    <form action="/paper/create" method="post">
+        <div>
+            <div class="group">
+                <input type="text" name="title" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Title</label>
+            </div>
+        </div>
+        <div>
+            <div class="group">
+                <textarea name="abstract" rows="5" cols="40" required> </textarea>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Abstract</label>
+            </div>
+            <div>
+                <input type="submit" value="Send">
+            </div>
+    </form>
+</div>
+{% endblock %}

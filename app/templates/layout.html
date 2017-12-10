@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/styles/nav.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/static/styles/material_input.css?q=1280549780" type="text/css" media="screen" charset="utf-8"
+    />
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+            var loc = window.location.href; // returns the full URL
+            if (/paper/.test(loc)) {
+                $('#paper_link').addClass('active');
+            }
+            if (/submission/.test(loc)) {
+                $('#submission_link').addClass('active');
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <div class="header_bar">
+            <div>
+                Login / Logout - username (with link)
+            </div>
+        </div>
+        <div class="header">
+            <div>
+                <h1>Paper Review Platform</h1>
+            </div>
+        </div>
+    </header>
+    {% block nav_bar %} {% endblock %}
+</body>
+
+</html>
