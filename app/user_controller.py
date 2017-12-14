@@ -28,4 +28,13 @@ class User_Controller:
             return None
 
     def get_users(self):
-        return User.query.all()
+        users_dict = []
+        users = User.query.all()
+        print(len(users))
+
+        for user in users:
+            users_dict.append({'id':user.id, 'username': user.username})
+            print(users_dict)
+
+        return users_dict
+        

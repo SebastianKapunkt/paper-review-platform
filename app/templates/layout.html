@@ -26,6 +26,51 @@
             }
         });
     </script>
+
+    <script>
+
+        function selectAllOptions(select) {
+            for (var i = 0; i < select.options.length; i++) {
+                select.options[i].selected = true;
+            }
+        }
+
+        function put(from, to) {
+            let keep = [];
+            for (let i = 0; i < from.options.length; i++) {
+                if (from.options[i].selected === true) {
+                    var opt = document.createElement('option');
+                    opt.value = from.options[i].value;
+                    opt.innerHTML = from.options[i].innerHTML;
+                    to.appendChild(opt);
+                } else {
+                    keep.push(from.options[i]);
+                }
+            }
+            from.innerText = null;
+            keep.forEach(element => from.options.add(element));
+            sortSelect(to);
+            sortSelect(from);
+        }
+        
+        function sortSelect(selElem) {
+            var tmpAry = new Array();
+            for (var i = 0; i < selElem.options.length; i++) {
+                tmpAry[i] = new Array();
+                tmpAry[i][0] = selElem.options[i].text;
+                tmpAry[i][1] = selElem.options[i].value;
+            }
+            tmpAry.sort();
+            while (selElem.options.length > 0) {
+                selElem.options[0] = null;
+            }
+            for (var i = 0; i < tmpAry.length; i++) {
+                var op = new Option(tmpAry[i][0], tmpAry[i][1]);
+                selElem.options[i] = op;
+            }
+            return;
+        }
+    </script>
 </head>
 
 <body>

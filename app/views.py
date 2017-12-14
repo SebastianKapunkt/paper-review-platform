@@ -45,8 +45,7 @@ def signin():
             flash('Error wrong Username or Password')
     return render_template('signin.html', title="SignIn")
 
-
-@app.route("/signout", methods=["GET"])
+@app.route('/signout')
 @login_required
 def logout():
     """Logout the current user."""
@@ -63,7 +62,8 @@ def root():
 
 @app.route('/submission')
 def submission():
-    return render_template('submission.html', title="Submission")
+    users = user_controller.get_users()
+    return render_template('submission.html', title="Submission", users=users)
 
 
 @app.route('/paper')
@@ -76,6 +76,7 @@ def paper():
 def create_paper():
     title = request.form['title']
     abstract = request.form['abstract']
+    collaborators = request.form.getlist('collaborators')
 
-    paper_controller.create_paper(title, abstract)
+    paper_controller.create_paper(title, abstract, collaborators)
     return redirect('/paper')

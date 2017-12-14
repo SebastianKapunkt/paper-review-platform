@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container">
-    <form action="/paper/create" method="post">
+    <form action="/paper/create" method="post" onsubmit="selectAllOptions(collaboratorsId);">
         <div>
             <div class="group">
                 <input type="text" name="title" required>
@@ -9,16 +9,29 @@
                 <label>Title</label>
             </div>
         </div>
+        <div class="group">
+            <textarea name="abstract" rows="5" cols="40" required> </textarea>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Abstract</label>
+        </div>
+        <div class="group">
+                <select multiple id="allUsersId" name="allUsers">
+                    {% for user in users %}
+                    <option value="{{user['id']}}"> {{user['username']}}</option>
+                    {% endfor %}
+                </select>
+        
+                <div onClick="put(allUsersId, collaboratorsId)"> Add </div>
+                <div onClick="put(collaboratorsId, allUsersId)"> Remove </div>
+        
+                <select multiple id="collaboratorsId" name="collaborators">
+        
+                </select>
+            </div>
         <div>
-            <div class="group">
-                <textarea name="abstract" rows="5" cols="40" required> </textarea>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Abstract</label>
-            </div>
-            <div>
-                <input type="submit" value="Send">
-            </div>
+            <input type="submit" value="Send">
+        </div>
     </form>
 </div>
 {% endblock %}
