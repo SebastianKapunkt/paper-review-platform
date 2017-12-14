@@ -14,7 +14,8 @@ body {
 }
 
 .header > div {
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   display: flex;
   justify-content: center;
 }
@@ -27,7 +28,8 @@ body {
 }
 
 .nav > div {
-  width: 995px;
+  width: 100%;
+  max-width: 995px;
   display: flex;
   flex-flow: row;
   flex-wrap: nowrap;
@@ -78,8 +80,12 @@ body {
   height: 100%;
 }
 
+.content > div {
+  width: 100%;
+  max-width: 995px;
+}
+
 .container {
-  width: 995px;
   display: flex;
   padding: 8px;
   box-sizing: border-box;
@@ -103,11 +109,11 @@ body {
   justify-content: center;
   text-align: right;
   vertical-align: middle;
-  line-height: 48px;
   background-color: #222;
   color: lightgray;
 }
 
 .header_bar > div {
-  width: 980px;
+  width: 100%;
+  max-width: 980px;
 }

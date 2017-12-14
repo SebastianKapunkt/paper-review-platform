@@ -80,11 +80,10 @@
             <div>
                 {% if session.logged_in %}
                 <div class="dropdown">
-                    <div class="dropbtn">{{session.username}}</div>
+                    <div class="dropbtn">{{session.username}} &#x25BE;</div>
                     <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
+                        <a href="/">Profile</a>
+                        <a href="/signout">Logout</a>
                     </div>
                 </div>
                 {% endif %}
