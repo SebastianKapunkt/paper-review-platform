@@ -30,6 +30,13 @@ class Review(db.Model):
 
 class User(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    authors = db.relationship("Author", back_populates="user")
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(), unique=True)
+    email = db.Column(db.String(), unique=True)
+    password = db.Column(db.String(), unique=True)
+    reset_password_token = db.Column(db.String(), nullable=True)
+    first_name = db.Column(db.String())
+    last_name = db.Column(db.String())
+
     reviews = db.relationship("Review", back_populates="user")
+    authors = db.relationship("Author", back_populates="user")

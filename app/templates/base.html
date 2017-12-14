@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    {% if "title" %}
+    <title>{{ title }} - Paper-Review </title>
+    {% else %}
+    <title>Paper-Review</title>
+    {% endif %}
+</head>
+
+<body>
+    <div>
+        Paper-Review-App:
+        <a href="/index">Home</a>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
