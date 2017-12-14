@@ -5,11 +5,6 @@ from app import user_controller, paper_controller
 from app.decorators import login_required
 
 
-@app.route('/index')
-def index():
-    return render_template('index.html', title="Home")
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """renders the signup form when /signup is called"""
@@ -25,7 +20,7 @@ def signup():
             username, email.lower(), password, first_name, last_name)
         flash(
             'Welcome to Paper-Reviewer {username} ,you have successfuly registered')
-        return redirect('/index')
+        return redirect('/')
     else:
         flash('Please make sure to enter all required Fields')
         return render_template('signup.html', title="SignUp", form=request.form)
@@ -45,7 +40,7 @@ def signin():
             flash('You have been logged in!')
             session['logged_in'] = True
             session['username'] = username
-            return redirect('/test')
+            return redirect('/')
         else:
             flash('Error wrong Username or Password')
     return render_template('signin.html', title="SignIn")
@@ -56,21 +51,15 @@ def signin():
 def logout():
     """Logout the current user."""
     session.clear()
-    return redirect("/index")
-
-
-@app.route('/test', methods=['GET'])
-@login_required
-def test():
-    """ Some test page to see if login works """
-    flash('Welcome on the Test page')
-    return render_template('test.html')
-
+    return redirect("/signin")
 
 @app.route('/')
 def root():
-    return render_template('nav_bar.html', title="Home")
-
+    if "logged_in" in session:
+        return render_template('welcome.html', title="Papers")    
+    else:
+        return redirect("/signin")
+    
 
 @app.route('/submission')
 def submission():

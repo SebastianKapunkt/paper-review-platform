@@ -3,6 +3,8 @@
 
 <head>
     <link rel="stylesheet" href="/static/styles/nav.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/static/styles/dropdown.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/static/styles/paper.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="/static/styles/material_input.css?q=1280549780" type="text/css" media="screen" charset="utf-8"
     />
     <script type="text/javascript" src="/static/jquery.min.js"></script>
@@ -16,6 +18,12 @@
             if (/submission/.test(loc)) {
                 $('#submission_link').addClass('active');
             }
+            if (/signup/.test(loc)) {
+                $('#signup').addClass('active');
+            }
+            if (/signin/.test(loc)) {
+                $('#signin').addClass('active');
+            }
         });
     </script>
 </head>
@@ -25,7 +33,16 @@
     <header>
         <div class="header_bar">
             <div>
-                Login / Logout - username (with link)
+                {% if session.logged_in %}
+                <div class="dropdown">
+                    <div class="dropbtn">{{session.username}}</div>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="header">
@@ -33,8 +50,51 @@
                 <h1>Paper Review Platform</h1>
             </div>
         </div>
+        {% if session.logged_in %}
+        <div class="nav">
+            <div>
+                <div id="paper_link">
+                    <a href="{{ url_for('paper') }}">
+                        <div>
+                            Paper
+                        </div>
+                    </a>
+                </div>
+                <div id="submission_link">
+                    <a href="{{ url_for('submission') }}">
+                        <div>
+                            Submissions
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="nav">
+            <div>
+                <div id="signup">
+                    <a href="{{ url_for('signup') }}">
+                        <div>
+                            Create Account
+                        </div>
+                    </a>
+                </div>
+                <div id="signin">
+                    <a href="{{ url_for('signin') }}">
+                        <div>
+                            Login
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </header>
-    {% block nav_bar %} {% endblock %}
+    <div class="content">
+        <div>
+            {% block content %} {% endblock %}
+        </div>
+    </div>
 </body>
 
 </html>
