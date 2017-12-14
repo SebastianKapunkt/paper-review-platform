@@ -37,4 +37,7 @@ class User_Controller:
             print(users_dict)
 
         return users_dict
+
+    def list(self):
+        return User.query.all()
         

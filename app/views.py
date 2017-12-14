@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, flash, session
+from flask import render_template, request, redirect, flash, session, url_for
 from app import app, db
 from app.models import User
 from app import user_controller, paper_controller
@@ -45,6 +45,7 @@ def signin():
             flash('Error wrong Username or Password')
     return render_template('signin.html', title="SignIn")
 
+
 @app.route('/signout')
 @login_required
 def logout():
@@ -52,13 +53,14 @@ def logout():
     session.clear()
     return redirect("/signin")
 
+
 @app.route('/')
 def root():
     if "logged_in" in session:
-        return render_template('welcome.html', title="Papers")    
+        return render_template('welcome.html', title="Papers")
     else:
         return redirect("/signin")
-    
+
 
 @app.route('/submission')
 def submission():
@@ -80,3 +82,30 @@ def create_paper():
 
     paper_controller.create_paper(title, abstract, collaborators)
     return redirect('/paper')
+
+
+@app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
+def edit_paper(paper_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        abstract = request.form['abstract']
+        collaborators = request.form.getlist('collaborators')
+        reviwers = request.form.getlist('reviewer')
+
+        paper_controller.save_paper(
+            paper_id, title, abstract, collaborators, reviwers)
+        return redirect(url_for('edit_paper', paper_id=paper_id))
+
+    if request.method == 'GET':
+        all_user = user_controller.list()
+        print("all user")
+        print(all_user)
+        paper = paper_controller.get(paper_id)
+        filtered_user = paper_controller.filter_resolved_user(paper, all_user)
+
+        return render_template(
+            'edit_paper.html',
+            title=paper.title,
+            paper=paper,
+            filtered_user=filtered_user
+        )

@@ -29,9 +29,12 @@
 
     <script>
 
-        function selectAllOptions(select) {
+        function selectAllOptions(select, select2) {
             for (var i = 0; i < select.options.length; i++) {
                 select.options[i].selected = true;
+            }
+            for (var i = 0; i < select2.options.length; i++) {
+                select2.options[i].selected = true;
             }
         }
 
