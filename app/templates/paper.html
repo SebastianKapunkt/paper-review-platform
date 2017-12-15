@@ -1,11 +1,22 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container paper-container">
-    {% for paper in papers %}
     <div>
-        <a href="/paper/{{paper.id}}/edit">
-            {{paper.title}} -- {{paper.abstract}}
-        </a>
+        <div>Title</div>
+        <div>Authors</div>
     </div>
+    {% for paper in papers %}
+    <a href="/paper/{{paper.id}}/edit">
+        <div>
+            <div>{{paper.title}}</div>
+            <div>
+                {% for author in paper.authors %}
+                <div>
+                    {{author.user.username}}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </a>
     {% endfor %}
 </div>
 {% endblock %}

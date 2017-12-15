@@ -13,6 +13,42 @@
 }
 
 .paper-container {
-  display: block;
-  flex-flow: row !important;
+  display: flex;
+  flex-flow: column;
+  background: #dde0e5;
+  border: 1px solid #dde0e5;
+  padding: 0px;
+  border-radius: 3px;
+  margin-bottom: 100px;
+}
+
+.paper-container > a > div {
+  background: white;
+  margin-top: 1px;
+  padding: 12px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.paper-container a {
+  text-decoration: none;
+  color: black;
+}
+
+.paper-container > a > div:hover{
+  background: lightseagreen;
+  color: white;
+}
+
+.paper-container > a > div > div {
+  padding: 4px;
+}
+
+.paper-container > div {
+  background: #F6F8FA;
+  padding: 12px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
 }
