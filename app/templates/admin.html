@@ -2,7 +2,7 @@
 
 <form action="/admin/set-role" method="post">
     <div>
-        <select multiple name="user_ids">
+        <select multiple name="user_ids" class="select-box">
             {% for user in users %}
             {% if user['id'] != session['user_id'] %}
             <option value="{{user['id']}}"> {{user['username']}} </option>
@@ -15,7 +15,7 @@
                 <option value="{{role.name}}"> {{role.name.upper()}} </option>
                 {% endfor %}
             </select>
-            <input type="submit" value="Set Role">
+            <button type="submit" value="Set Role"> Set Role </button>
         </div>
     </div>
 </form>

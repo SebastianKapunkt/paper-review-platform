@@ -133,6 +133,8 @@ def show_paper(paper_id):
             title=paper.title,
             paper=paper
         )
+
+
 @app.route('/admin', methods=['GET'])
 @login_required
 @requires_roles('admin')
@@ -140,6 +142,7 @@ def admin_page():
     users = user_controller.get_users()
     roles = role_controller.get_roles()
     return render_template('admin.html', title="Admin", users=users, roles=roles)
+
 
 @app.route('/admin/set-role', methods=['POST'])
 @login_required

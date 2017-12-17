@@ -27,13 +27,12 @@ class User_Controller:
         else:
             return None
 
-    def set_user_role(self, user_id, role):
+    def set_user_role(self, user_ids, role):
         """ Set the role of the current User / Admin Only """
-        user = User.query.get(user_id)
-
-        user.role_name = role
-        db.session.commit()
-        return user.role_name
+        for user_id in user_ids:
+            user = User.query.get(user_id)
+            user.role_name = role
+            db.session.commit()
     
     def get_current_user_role(self, user_id):
         """ Get the role of the current User which is Logged in """
@@ -45,7 +44,8 @@ class User_Controller:
         users = User.query.all()
 
         for user in users:
-            users_dict.append({'id': user.id, 'username': user.username})
+            if user.role != 'admin':
+                users_dict.append({'id': user.id, 'username': user.username})
 
         return users_dict
 
