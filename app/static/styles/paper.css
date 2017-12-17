@@ -117,17 +117,15 @@
   max-width: 200px;
 }
 
-.right-side button{
+button{
   background: #f6f8fa;
   cursor: pointer;
   border: thin solid #dde0e5;
   padding: 12px;
   border-radius: 3px;
-  margin-bottom: 6px;
-  margin-left: 20px;
 }
 
-.right-side button:hover{
+button:hover{
   background: lightseagreen;
   color: white;
 }
@@ -136,4 +134,9 @@
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+}
+
+.paper-flow button{
+  margin-left: 20px;
+  margin-bottom: 6px;
 }

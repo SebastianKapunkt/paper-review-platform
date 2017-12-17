@@ -8,13 +8,13 @@
                 <span class="bar"></span>
                 <label>Title</label>
             </div>
-            <div class="group">
+            <div class="title group">
                 <textarea name="abstract" rows="5" cols="40" required>{{paper.abstract}}</textarea>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Abstract</label>
             </div>
-            <div>Authors</div>
+            <div class="title">Authors</div>
             <div class="select-box">
                 <select multiple id="allUsersId" name="allUsers">
                     {% for user in filtered_user %}
@@ -32,7 +32,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <div>Reviews</div>
+            <div class="title">Reviews</div>
             <div class="select-box">
                 <select multiple id="notYetReviwerId" name="allUsers">
                     {% for user in filtered_user %}

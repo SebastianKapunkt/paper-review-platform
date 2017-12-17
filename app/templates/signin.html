@@ -1,11 +1,26 @@
 {% extends 'layout.html'%} {% block content %}
-<h1> Login </h1>
-<form action="/signin" method="POST">
-    <dl>
-        <dt> Email:  <input type="text" name="email" > </input> </dt>
-         <dt> Password:  <input type="password" name="password" > </input> </dt>
-        <dt> <input type="submit" value="Sign In"> </dt>
-    </dl>
-</form>
+<div class="container login-container">
+    <div class="box">
+        <div class="box-title">
+            Login
+        </div>
+        <div class="box-form">
+            <form action="/signin" method="POST">
+                <div class="title group">
+                    <input type="text" name="email" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                </div>
+                <div class="title group">
+                    <input type="password" name="password" required autofocus>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Password</label>
+                </div>
+                <button type="submit" value="login">login</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,15 +1,43 @@
 {% extends "layout.html" %} {% block content %}
-<div class="container">
-    <h1> SignUp </h1>
-    <form action="/signup" method="POST">
-        <dl>
-            <dt> Username: <input type="text" name="username" > </input> </dt>
-            <dt> Email:  <input type="text" name="email" > </input> </dt>
-            <dt> Firstname:  <input type="text" name="first_name" > </input> </dt>
-            <dt> Lastname: <input type="text" name="last_name" > </input> </dt>
-            <dt> Password:  <input type="password" name="password" > </input> </dt>
-            <dt> <input type="submit" value="Sing Up"> </dt>
-        </dl>
-    </form>
+<div class="container login-container">
+    <div class="box">
+        <div class="box-title">SignUp</div>
+        <div class="box-form">
+            <form action="/signup" method="POST">
+                <div class="title group">
+                    <input type="text" name="username" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Username</label>
+                </div>
+                <div class="title group">
+                    <input type="text" name="email" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                </div>
+
+                <div class="title group">
+                    <input type="text" name="first_name" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Firstname</label>
+                </div>
+                <div class="title group">
+                    <input type="text" name="last_name" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lastname</label>
+                </div>
+                <div class="title group">
+                    <input type="password" name="password" required autofocus>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Password</label>
+                </div>
+                <button type="submit" value="Sing Up">Sign up</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
