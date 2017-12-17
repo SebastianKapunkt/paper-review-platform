@@ -63,18 +63,21 @@ def root():
 
 
 @app.route('/submission')
+@login_required
 def submission():
     users = user_controller.get_users()
     return render_template('submission.html', title="Submission", users=users)
 
 
 @app.route('/paper')
+@login_required
 def paper():
     papers = paper_controller.get_papers()
     return render_template('paper.html', title="Paper", papers=papers)
 
 
 @app.route('/paper/create', methods=['POST'])
+@login_required
 def create_paper():
     title = request.form['title']
     abstract = request.form['abstract']
@@ -85,6 +88,7 @@ def create_paper():
 
 
 @app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
+@login_required
 def edit_paper(paper_id):
     if request.method == 'POST':
         title = request.form['title']
