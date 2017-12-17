@@ -36,7 +36,7 @@
   color: black;
 }
 
-.paper-container > a > div:hover{
+.paper-container > a > div:hover {
   background: lightseagreen;
   color: white;
 }
@@ -46,9 +46,48 @@
 }
 
 .paper-container > div {
-  background: #F6F8FA;
+  background: #f6f8fa;
   padding: 12px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+}
+
+.show-paper {
+  display: flex;
+  flex-flow: column;
+  padding: 0px;
+}
+
+.item-container {
+  border: thin solid #dde0e5;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.item-container > div:hover {
+  color: white;
+  background: lightseagreen;
+}
+
+.item-container > div:first-child {
+  background: #f6f8fa;
+  padding: 12px;
+  border-bottom: thin solid #dde0e5;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.item-container > div:first-child > a {
+  text-decoration: none;
+  color: lightseagreen;
+}
+
+.item-container > div:first-child:hover {
+  color: black;
+}
+
+.item-container > div {
+  padding: 8px;
 }

@@ -98,7 +98,7 @@ def edit_paper(paper_id):
 
         paper_controller.save_paper(
             paper_id, title, abstract, collaborators, reviwers)
-        return redirect(url_for('edit_paper', paper_id=paper_id))
+        return redirect(url_for('show_paper', paper_id=paper_id))
 
     if request.method == 'GET':
         all_user = user_controller.list()
@@ -112,4 +112,16 @@ def edit_paper(paper_id):
             title=paper.title,
             paper=paper,
             filtered_user=filtered_user
+        )
+
+@app.route('/paper/<int:paper_id>/', methods=['GET'])
+@login_required
+def show_paper(paper_id):
+    if request.method == 'GET':
+        paper = paper_controller.get(paper_id)
+
+        return render_template(
+            'show_paper.html',
+            title=paper.title,
+            paper=paper
         )
