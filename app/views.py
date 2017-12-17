@@ -93,12 +93,18 @@ def edit_paper(paper_id):
     if request.method == 'POST':
         title = request.form['title']
         abstract = request.form['abstract']
+        submit = request.form['submit']
         collaborators = request.form.getlist('collaborators')
         reviwers = request.form.getlist('reviewer')
 
-        paper_controller.save_paper(
-            paper_id, title, abstract, collaborators, reviwers)
-        return redirect(url_for('show_paper', paper_id=paper_id))
+        if(submit != "cancel"):
+            paper_controller.save_paper(
+                paper_id, title, abstract, collaborators, reviwers)
+
+        if(submit == "redirect"):
+            return redirect(url_for('edit_paper', paper_id=paper_id))
+        else:
+            return redirect(url_for('show_paper', paper_id=paper_id))
 
     if request.method == 'GET':
         all_user = user_controller.list()
@@ -113,6 +119,7 @@ def edit_paper(paper_id):
             paper=paper,
             filtered_user=filtered_user
         )
+
 
 @app.route('/paper/<int:paper_id>/', methods=['GET'])
 @login_required

@@ -1,56 +1,63 @@
 {% extends "layout.html" %} {% block content %}
-<div class="container"></div>
-<form action="/paper/{{ paper.id }}/edit" method="post" onsubmit="selectAllOptions(collaboratorsId, reviewerId);">
-    <div>
-        <div class="group">
-            <input type="text" name="title" required value="{{paper.title}}">
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Title</label>
+<div class="container">
+    <form action="/paper/{{ paper.id }}/edit" method="post" onsubmit="selectAllOptions(collaboratorsId, reviewerId);" class="paper-flow">
+        <div class="left-side">
+            <div class="group">
+                <input type="text" name="title" required value="{{paper.title}}">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Title</label>
+            </div>
+            <div class="group">
+                <textarea name="abstract" rows="5" cols="40" required>{{paper.abstract}}</textarea>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Abstract</label>
+            </div>
+            <div>Authors</div>
+            <div class="select-box">
+                <select multiple id="allUsersId" name="allUsers">
+                    {% for user in filtered_user %}
+                    <option value="{{user['id']}}"> {{user['username']}}</option>
+                    {% endfor %}
+                </select>
+
+                <div>
+                    <div onClick="put(allUsersId, collaboratorsId)"> Add &rarr; </div>
+                    <div onClick="put(collaboratorsId, allUsersId)"> &larr; Remove </div>
+                </div>
+                <select multiple id="collaboratorsId" name="collaborators">
+                    {% for author in paper.authors %}
+                    <option value="{{author.user['id']}}"> {{author.user['username']}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>Reviews</div>
+            <div class="select-box">
+                <select multiple id="notYetReviwerId" name="allUsers">
+                    {% for user in filtered_user %}
+                    <option value="{{user['id']}}"> {{user['username']}}</option>
+                    {% endfor %}
+                </select>
+
+                <div>
+                    <div onClick="put(notYetReviwerId, reviewerId)"> Add &rarr; </div>
+                    <div onClick="put(reviewerId, notYetReviwerId)">&larr; Remove </div>
+                </div>
+
+                <select multiple id="reviewerId" name="reviewer">
+                    {% for review in paper.reviews %}
+                    <option value="{{review.user['id']}}"> {{review.user['username']}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
         </div>
-    </div>
-    <div class="group">
-        <textarea name="abstract" rows="5" cols="40" required>{{paper.abstract}}</textarea>
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label>Abstract</label>
-    </div>
-    <div>
-        <select multiple id="allUsersId" name="allUsers">
-            {% for user in filtered_user %}
-            <option value="{{user['id']}}"> {{user['username']}}</option>
-            {% endfor %}
-        </select>
-
-        <div onClick="put(allUsersId, collaboratorsId)"> Add </div>
-        <div onClick="put(collaboratorsId, allUsersId)"> Remove </div>
-
-        <select multiple id="collaboratorsId" name="collaborators">
-            {% for author in paper.authors %}
-            <option value="{{author.user['id']}}"> {{author.user['username']}}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div>
-        <select multiple id="notYetReviwerId" name="allUsers">
-                {% for user in filtered_user %}
-                <option value="{{user['id']}}"> {{user['username']}}</option>
-                {% endfor %}
-        </select>
-
-        <div onClick="put(notYetReviwerId, reviewerId)"> Add </div>
-        <div onClick="put(reviewerId, notYetReviwerId)"> Remove </div>
-
-        <select multiple id="reviewerId" name="reviewer">
-            {% for review in paper.reviews %}
-            <option value="{{review.user['id']}}"> {{review.user['username']}}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div>
-        <input type="submit" value="Send">
-    </div>
-</form>
+        <div class="right-side">
+            <button type="submit" name="submit" value="redirect">save and continue</button>
+            <button type="submit" name="submit" value="save">save</button>
+            <button type="submit" name="submit" value="cancel">cancel</button>
+        </div>
+    </form>
 </div>
 {% endblock %}

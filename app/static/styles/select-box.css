@@ -1,0 +1,42 @@
+.select-box {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.select-box > div {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: 150px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.select-box > div > div {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    border: thin solid #dde0e5;
+    background: #f6f8fa;
+    border-radius: 3px;
+    margin: 4px;
+}
+
+.select-box select {    
+  background: #f6f8fa;
+  width: 300px;
+  height: 150px;
+}
+
+.select-box select option {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: thin solid #dde0e5;    
+}
+
+.select-box select option:hover {
+    background: lightseagreen;
+    color: white;
+}

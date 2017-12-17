@@ -10,9 +10,13 @@
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 300px;
+  max-width: 995px;
+  width: 100%;
   border: none;
-  border-bottom: 1px solid #757575;
+  border: thin solid #dde0e5;
+  background: #f6f8fa;
+  border-radius: 3px;
+  resize: none;
 }
 .group input:focus,
 .group textarea:focus {
@@ -47,6 +51,7 @@
 .group .bar {
   position: relative;
   display: block;
+  max-width: 995px;
   width: 100%;
 }
 .group .bar:before,
