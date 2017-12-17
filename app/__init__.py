@@ -8,13 +8,18 @@ db = SQLAlchemy(app)
 
 from app import models
 db.init_app(app)
+
+from app import db_init
 with app.app_context():
+    # db.drop_all()
     db.create_all()
+    db_init.init_db()
 
 
-from app import user_controller, paper_controller
+from app import user_controller, paper_controller, role_controller
 user_controller = user_controller.User_Controller()
 paper_controller = paper_controller.Paper_Controller()
+role_controller = role_controller.Role_Controller()
 
 from app import url_for
 from app import views

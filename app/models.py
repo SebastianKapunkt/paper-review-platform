@@ -42,5 +42,16 @@ class User(db.Model):
     first_name = db.Column(db.String())
     last_name = db.Column(db.String())
 
+    # role_id = db.Column(db.Integer(), db.ForeignKey('roles.id'))
+    role_name = db.Column(db.String(), db.ForeignKey('roles.name'))
+
     reviews = db.relationship("Review", back_populates="user")
     authors = db.relationship("Author", back_populates="user")
+
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(), unique=True)
+
+    users = db.relationship("User", backref="role",  lazy='dynamic')

@@ -4,6 +4,7 @@ from passlib.hash import sha256_crypt
 
 
 class User_Controller:
+    """ Class to Handle user Specifiy Queries"""
 
     def create_user(self, username, email, password, first_name, last_name):
         new_user = User(
@@ -19,22 +20,32 @@ class User_Controller:
         db.session.commit()
 
     def authenticate_user(self, email, password):
-        """ Get the User by Email """
+        """ Authenticate the User by Email and Password """
         user = User.query.filter_by(email=email).first()
-        print('user: ', user.username)
         if sha256_crypt.verify(str(password), user.password):
-            return user.username
+            return {'id': user.id, 'username': user.username}
         else:
             return None
+
+    def set_user_role(self, user_id, role):
+        """ Set the role of the current User / Admin Only """
+        user = User.query.get(user_id)
+
+        user.role_name = role
+        db.session.commit()
+        return user.role_name
+    
+    def get_current_user_role(self, user_id):
+        """ Get the role of the current User which is Logged in """
+        user = User.query.get(user_id)
+        return user.role_name
 
     def get_users(self):
         users_dict = []
         users = User.query.all()
-        print(len(users))
 
         for user in users:
-            users_dict.append({'id':user.id, 'username': user.username})
-            print(users_dict)
+            users_dict.append({'id': user.id, 'username': user.username})
 
         return users_dict
 

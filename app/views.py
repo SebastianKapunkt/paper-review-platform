@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, flash, session, url_for
 from app import app, db
 from app.models import User
-from app import user_controller, paper_controller
-from app.decorators import login_required
+from app import user_controller, paper_controller, role_controller
+from app.decorators import login_required, requires_roles
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -34,12 +34,13 @@ def signin():
     if request.method == "POST":
         email = request.form['email'].lower()
         password = request.form['password']
-        username = user_controller.authenticate_user(email, password)
+        user_document = user_controller.authenticate_user(email, password)
 
-        if username:
+        if user_document:
             flash('You have been logged in!')
             session['logged_in'] = True
-            session['username'] = username
+            session['username'] = user_document['username']
+            session['user_id'] = user_document['id']
             return redirect('/')
         else:
             flash('Error wrong Username or Password')
@@ -132,3 +133,19 @@ def show_paper(paper_id):
             title=paper.title,
             paper=paper
         )
+@app.route('/admin', methods=['GET'])
+@login_required
+@requires_roles('admin')
+def admin_page():
+    users = user_controller.get_users()
+    roles = role_controller.get_roles()
+    return render_template('admin.html', title="Admin", users=users, roles=roles)
+
+@app.route('/admin/set-role', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def set_roles():
+    user_ids = request.form.getlist('user_ids')
+    role = request.form['role']
+    user_controller.set_user_role(user_ids, role)
+    return redirect('/admin')
