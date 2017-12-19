@@ -1,21 +1,25 @@
 {% extends 'layout.html' %} {% block content %}
-
-<form action="/admin/set-role" method="post">
-    <div>
-        <select multiple name="user_ids" class="select-box">
-            {% for user in users %}
-            <option value="{{user['user_id']}}"> {{user['username']}} -- {{user['role']}} </option>
-            {% endfor %}
-        </select>
-        <div>
-            <select name="role">
-                {% for role in roles %}
-                <option value="{{role.name}}"> {{role.name.upper()}} </option>
-                {% endfor %}
-            </select>
+<div class="container">
+    <form action="/admin/set-role" method="post" class="paper-flow">
+        <div class="left-side">
+            <div>
+                <select name="role">
+                    {% for role in roles %}
+                    <option value="{{role.name}}"> {{role.name.upper()}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="select-box select-admin">
+                <select multiple name="user_ids">
+                    {% for user in users %}
+                    <option value="{{user['user_id']}}"> {{user['username']}} -- {{user['role']}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="right-side">
             <button type="submit" value="Set Role"> Set Role </button>
         </div>
-    </div>
-</form>
-
+    </form>
+</div>
 {% endblock %}

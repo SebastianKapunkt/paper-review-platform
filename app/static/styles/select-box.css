@@ -41,3 +41,8 @@
     background: lightseagreen;
     color: white;
 }
+
+.select-admin select{
+  width: 100% !important;
+  height: 500px;
+}
