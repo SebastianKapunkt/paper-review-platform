@@ -4,9 +4,11 @@
         <div class="item-container">
             <div>
                 <div>Title</div>
-                <a href="/paper/{{paper.id}}/edit">
+                {% if can_edit %}
+                <a href="{{url_for('edit_paper', paper_id=paper.id)}}">
                     <div>Edit</div>
                 </a>
+                {% endif %}
             </div>
             <div>{{paper.title}}</div>
         </div>

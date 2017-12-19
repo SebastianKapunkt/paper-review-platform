@@ -14,6 +14,7 @@ class User_Controller:
             reset_password_token='',
             first_name=first_name,
             last_name=last_name,
+            role_name='default'
         )
 
         db.session.add(new_user)
@@ -23,7 +24,7 @@ class User_Controller:
         """ Authenticate the User by Email and Password """
         user = User.query.filter_by(email=email).first()
         if sha256_crypt.verify(str(password), user.password):
-            return {'user_id': user.id, 'username': user.username}
+            return {'user_id': user.id, 'username': user.username, 'role': user.role_name}
         else:
             return None
 
@@ -44,10 +45,17 @@ class User_Controller:
         users = User.query.all()
 
         for user in users:
-            if user.role != 'admin':
-                users_dict.append({'user_id': user.id, 'username': user.username})
+            if user.role_name != 'admin':
+                users_dict.append({'user_id': user.id, 'username': user.username, 'role': user.role_name})
 
         return users_dict
 
     def list(self):
-        return User.query.all()
+        user_without_admin = []
+        users = User.query.all()
+
+        for user in users:
+            if user.role_name != 'admin':
+                user_without_admin.append(user)
+
+        return user_without_admin

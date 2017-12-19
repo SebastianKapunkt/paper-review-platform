@@ -16,11 +16,17 @@ class Paper_Controller:
             author.user = User.query.get(int(collaborator))
             new_paper.authors.append(author)
 
+        if not collaborators:
+            author = Author()
+            author.user = User.query.get(session['user_id'])
+            new_paper.authors.append(author)
+
         db.session.add(new_paper)
         db.session.commit()
 
     def get_papers(self):
-        return Paper.query.all()
+        papers = Paper.query.all()
+        return papers[::-1]
 
     def get(self, paper_id):
         return Paper.query.get(paper_id)
@@ -40,11 +46,12 @@ class Paper_Controller:
         return is_author
 
     def get_review(self, paper, user_id):
-        review = None
+        user_review = None
         for review in paper.reviews:
             if review.user.id == user_id:
-                review = review
-        return review
+                print(review.user)
+                user_review = review
+        return user_review
 
     def apply_rating(self, paper, user_id, rating):
         review = self.get_review(paper, user_id)
@@ -72,11 +79,14 @@ class Paper_Controller:
     def save_paper(self, paper_id, title, abstract, collaborators, reviewer):
         paper = Paper.query.get(paper_id)
 
-        paper.title = title
-        paper.abstract = abstract
-
-        self.merge_authors(paper, collaborators)
-        self.merge_reviewer(paper, reviewer)
+        if title:
+            paper.title = title
+        if abstract:
+            paper.abstract = abstract
+        if collaborators:
+            self.merge_authors(paper, collaborators)
+        if reviewer:
+            self.merge_reviewer(paper, reviewer)
 
         db.session.commit()
 

@@ -1,0 +1,34 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container paper-container">
+    <div>
+        <div>Title</div>
+        <div>Reviewer</div>
+        <div>Authors</div>
+        <div>Score</div>
+        <div>Status</div>
+    </div>
+    {% for paper in papers %}
+    <a href="{{url_for('council_edit_paper', paper_id=paper.id)}}">
+        <div>
+            <div>{{paper.title}}</div>
+            <div>
+                {% for review in paper.reviews %}
+                <div>
+                    {{review.user.username}}
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% for author in paper.authors %}
+                <div>
+                    {{author.user.username}}
+                </div>
+                {% endfor %}
+            </div>
+            <div>{{paper.get_score()}}</div>
+            <div>{{paper.status}}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

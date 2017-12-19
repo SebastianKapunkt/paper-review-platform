@@ -41,6 +41,7 @@ def signin():
             session['logged_in'] = True
             session['username'] = user_dict['username']
             session['user_id'] = user_dict['user_id']
+            session['role'] = user_dict['role']
             return redirect('/')
         else:
             flash('Error wrong Username or Password')
@@ -91,16 +92,26 @@ def create_paper():
 @app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
 @login_required
 def edit_paper(paper_id):
+    paper = paper_controller.get(paper_id)
+    if not paper_controller.is_author(paper, session['user_id']):
+        return redirect(url_for('show_paper', paper_id=paper_id))
+
     if request.method == 'POST':
         title = request.form['title']
         abstract = request.form['abstract']
         submit = request.form['submit']
         collaborators = request.form.getlist('collaborators')
-        reviwers = request.form.getlist('reviewer')
+
+        print(collaborators)
 
         if(submit != "cancel"):
             paper_controller.save_paper(
-                paper_id, title, abstract, collaborators, reviwers)
+                paper_id,
+                title,
+                abstract,
+                collaborators,
+                None
+            )
 
         if(submit == "redirect"):
             return redirect(url_for('edit_paper', paper_id=paper_id))
@@ -109,10 +120,10 @@ def edit_paper(paper_id):
 
     if request.method == 'GET':
         all_user = user_controller.list()
-        print("all user")
-        print(all_user)
-        paper = paper_controller.get(paper_id)
-        filtered_user = paper_controller.filter_resolved_user(paper, all_user)
+        filtered_user = paper_controller.filter_resolved_user(
+            paper,
+            all_user
+        )
 
         return render_template(
             'edit_paper.html',
@@ -127,11 +138,12 @@ def edit_paper(paper_id):
 def show_paper(paper_id):
     if request.method == 'GET':
         paper = paper_controller.get(paper_id)
-
+        can_edit = paper_controller.is_author(paper, session['user_id'])
         return render_template(
             'show_paper.html',
             title=paper.title,
-            paper=paper
+            paper=paper,
+            can_edit=can_edit
         )
 
 
@@ -197,3 +209,47 @@ def authored_by_user():
 def to_review_by_user():
     papers = paper_controller.get_papers_to_review_by_user(session['user_id'])
     return render_template('to_review.html', title="Paper", papers=papers)
+
+
+@app.route('/conference_chair', methods=['GET'])
+@login_required
+@requires_roles('council', 'admin')
+def conference_chair():
+    papers = paper_controller.get_papers()
+    return render_template('chair.html', title="Conference Chair", papers=papers)
+
+
+@app.route('/paper/<int:paper_id>/council/edit', methods=['GET', 'POST'])
+@login_required
+@requires_roles('council', 'admin')
+def council_edit_paper(paper_id):
+    paper = paper_controller.get(paper_id)
+    if request.method == 'GET':
+        all_user = user_controller.list()
+        filtered_user = paper_controller.filter_resolved_user(
+            paper,
+            all_user
+        )
+        return render_template(
+            'council_edit_paper.html',
+            title="Conference Chair",
+            paper=paper,
+            filtered_user=filtered_user
+        )
+    if request.method == 'POST':
+        submit = request.form['submit']
+        reviwers = request.form.getlist('reviewer')
+
+        if(submit != "cancel"):
+            paper_controller.save_paper(
+                paper_id,
+                None,
+                None,
+                None,
+                reviwers
+            )
+
+        if(submit == "redirect"):
+            return redirect(url_for('conference_chair'))
+        else:
+            return redirect(url_for('council_edit_paper', paper_id=paper_id))

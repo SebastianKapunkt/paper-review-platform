@@ -20,6 +20,19 @@ class Paper(db.Model):
     authors = db.relationship("Author", back_populates="paper")
     reviews = db.relationship("Review", back_populates="paper")
 
+    def get_score(self):
+        summary = 0;
+        reviewd = 0;
+
+        for review in self.reviews:
+            if review.score:
+                summary += review.score
+                reviewd += 1
+        if reviewd > 0:
+            return round(summary / reviewd, 2)
+        else:
+            return None;
+
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -42,7 +55,6 @@ class User(db.Model):
     first_name = db.Column(db.String())
     last_name = db.Column(db.String())
 
-    # role_id = db.Column(db.Integer(), db.ForeignKey('roles.id'))
     role_name = db.Column(db.String(), db.ForeignKey('roles.name'))
 
     reviews = db.relationship("Review", back_populates="user")

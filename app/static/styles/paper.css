@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 42px;
 }
 
 .paper_bar a {
@@ -75,8 +75,12 @@
 
 .paper-container > div > div:nth-child(2),
 .paper-container > div > div:nth-child(3),
+.paper-container > div > div:nth-child(4),
+.paper-container > div > div:nth-child(5),
 .paper-container a > div > div:nth-child(2),
-.paper-container a > div > div:nth-child(3){
+.paper-container a > div > div:nth-child(3),
+.paper-container a > div > div:nth-child(4),
+.paper-container a > div > div:nth-child(5){
   min-width: 100px;
   text-align: center;
 }

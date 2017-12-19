@@ -18,7 +18,7 @@
             <div class="select-box">
                 <select multiple id="allUsersId" name="allUsers">
                     {% for user in users %}
-                    <option value="{{user['id']}}"> {{user['username']}}</option>
+                    <option value="{{user['user_id']}}"> {{user['username']}}</option>
                     {% endfor %}
                 </select>
 

@@ -11,7 +11,7 @@ db.init_app(app)
 
 from app import db_init
 with app.app_context():
-    # db.drop_all()
+    #db.drop_all()
     db.create_all()
     db_init.init_db()
 
