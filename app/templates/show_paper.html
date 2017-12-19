@@ -24,15 +24,6 @@
             </div>
             {% endfor %}
         </div>
-        <div class="item-container paper-user">
-            <div>Reviews</div>
-            {% for review in paper.reviews %}
-            <div class="show-review">
-                <div>{{review.user.username}}</div>
-                <div>{{review.score}}</div>
-            </div>
-            {% endfor %}
-        </div>
     </div>
 </div>
 {% endblock %}

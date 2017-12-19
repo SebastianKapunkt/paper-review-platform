@@ -32,26 +32,6 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="title">Reviews</div>
-            <div class="select-box">
-                <select multiple id="notYetReviwerId" name="allUsers">
-                    {% for user in filtered_user %}
-                    <option value="{{user['id']}}"> {{user['username']}}</option>
-                    {% endfor %}
-                </select>
-
-                <div>
-                    <div onClick="put(notYetReviwerId, reviewerId)"> Add &rarr; </div>
-                    <div onClick="put(reviewerId, notYetReviwerId)">&larr; Remove </div>
-                </div>
-
-                <select multiple id="reviewerId" name="reviewer">
-                    {% for review in paper.reviews %}
-                    <option value="{{review.user['id']}}"> {{review.user['username']}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
         </div>
         <div class="right-side">
             <button type="submit" name="submit" value="redirect">save and continue</button>
