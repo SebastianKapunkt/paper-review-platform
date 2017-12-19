@@ -8,7 +8,6 @@ from app.decorators import login_required, requires_roles
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """renders the signup form when /signup is called"""
-
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -16,14 +15,15 @@ def signup():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
 
-        user_controller.create_user(
+        state = user_controller.create_user(
             username, email.lower(), password, first_name, last_name)
-        flash(
-            'Welcome to Paper-Reviewer {username} ,you have successfuly registered')
-        return redirect('/')
-    else:
-        flash('Please make sure to enter all required Fields')
-        return render_template('signup.html', title="SignUp", form=request.form)
+
+        if state == 'ok':
+            flash(
+                'Welcome to Paper-Reviewer {username} ,you have successfuly registered')
+            return redirect('/')
+        else:
+            return render_template('signup.html', title="SignUp", form=request.form)
 
     return render_template('signup.html', title="SignUp", form=request.form)
 
@@ -31,6 +31,7 @@ def signup():
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     """renders the signin form when /signin is called"""
+    error = None
     if request.method == "POST":
         email = request.form['email'].lower()
         password = request.form['password']
@@ -44,8 +45,8 @@ def signin():
             session['role'] = user_dict['role']
             return redirect('/')
         else:
-            flash('Error wrong Username or Password')
-    return render_template('signin.html', title="SignIn")
+            error = 'Error wrong Username or Password'
+    return render_template('signin.html', title="SignIn", error=error)
 
 
 @app.route('/signout')

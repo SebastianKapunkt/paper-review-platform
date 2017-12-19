@@ -7,6 +7,7 @@ class User_Controller:
     """ Class to Handle user Specifiy Queries"""
 
     def create_user(self, username, email, password, first_name, last_name):
+        """ Create a new user if a user with the entered email does not exist """
         new_user = User(
             username=username,
             email=email,
@@ -17,14 +18,20 @@ class User_Controller:
             role_name='default'
         )
 
-        db.session.add(new_user)
-        db.session.commit()
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return 'exists'
+        else:
+            db.session.add(new_user)
+            db.session.commit()
+            return 'ok'
 
     def authenticate_user(self, email, password):
         """ Authenticate the User by Email and Password """
         user = User.query.filter_by(email=email).first()
-        if sha256_crypt.verify(str(password), user.password):
-            return {'user_id': user.id, 'username': user.username, 'role': user.role_name}
+        if user:
+            if sha256_crypt.verify(str(password), user.password):
+                return {'user_id': user.id, 'username': user.username, 'role': user.role_name}
         else:
             return None
 
