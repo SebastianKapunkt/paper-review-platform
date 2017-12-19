@@ -25,6 +25,50 @@ class Paper_Controller:
     def get(self, paper_id):
         return Paper.query.get(paper_id)
 
+    def is_reviewer(self, paper, user_id):
+        is_reviewer = False
+        for review in paper.reviews:
+            if review.user.id == user_id:
+                is_reviewer = True
+        return is_reviewer
+
+    def is_author(self, paper, user_id):
+        is_author = False
+        for author in paper.authors:
+            if author.user.id == user_id:
+                is_author = True
+        return is_author
+
+    def get_review(self, paper, user_id):
+        review = None
+        for review in paper.reviews:
+            if review.user.id == user_id:
+                review = review
+        return review
+
+    def apply_rating(self, paper, user_id, rating):
+        review = self.get_review(paper, user_id)
+        review.score = rating
+        db.session.commit()
+        return review
+
+    def get_papers_auhtored_by_user(self, user_id):
+        papers = self.get_papers()
+        authored = []
+        for paper in papers:
+            if self.is_author(paper, user_id):
+                authored.append(paper)
+        return authored
+
+    def get_papers_to_review_by_user(self, user_id):
+        papers = self.get_papers()
+        to_review = []
+        for paper in papers:
+            if self.is_reviewer(paper, user_id):
+                review = self.get_review(paper, user_id)
+                to_review.append({'paper': paper, 'score': review.score})
+        return to_review
+
     def save_paper(self, paper_id, title, abstract, collaborators, reviewer):
         paper = Paper.query.get(paper_id)
 
@@ -89,7 +133,7 @@ class Paper_Controller:
         can_review = list(set(can_review) - set(author_user))
 
         return can_review
-    
+
     def get_user_of_authors_or_revwies(self, items):
         authors_user = []
         for author in items:

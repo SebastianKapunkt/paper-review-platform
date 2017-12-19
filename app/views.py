@@ -34,13 +34,13 @@ def signin():
     if request.method == "POST":
         email = request.form['email'].lower()
         password = request.form['password']
-        user_document = user_controller.authenticate_user(email, password)
+        user_dict = user_controller.authenticate_user(email, password)
 
-        if user_document:
+        if user_dict:
             flash('You have been logged in!')
             session['logged_in'] = True
-            session['username'] = user_document['username']
-            session['user_id'] = user_document['id']
+            session['username'] = user_dict['username']
+            session['user_id'] = user_dict['user_id']
             return redirect('/')
         else:
             flash('Error wrong Username or Password')
@@ -58,7 +58,7 @@ def logout():
 @app.route('/')
 def root():
     if "logged_in" in session:
-        return render_template('welcome.html', title="Papers")
+        return redirect(url_for('to_review_by_user'))
     else:
         return redirect("/signin")
 
@@ -152,3 +152,48 @@ def set_roles():
     role = request.form['role']
     user_controller.set_user_role(user_ids, role)
     return redirect('/admin')
+
+
+@app.route('/paper/<int:paper_id>/review', methods=['POST', 'GET'])
+@login_required
+def review_paper(paper_id):
+    paper = paper_controller.get(paper_id)
+    if paper_controller.is_reviewer(paper, session['user_id']):
+        if request.method == 'GET':
+            if paper_controller.is_reviewer(paper, session['user_id']):
+                review = paper_controller.get_review(paper, session['user_id'])
+                return render_template(
+                    'review_paper.html',
+                    title=paper.title,
+                    paper=paper,
+                    review=review
+                )
+
+        if request.method == 'POST':
+            rating = request.form['rating']
+            submit = request.form['submit']
+            review = paper_controller.apply_rating(
+                paper,
+                session['user_id'],
+                rating
+            )
+            if submit == "redirect":
+                return redirect(url_for('to_review_by_user'))
+            else:
+                return redirect(url_for('review_paper', paper_id=paper.id))
+    else:
+        return redirect('/')
+
+
+@app.route('/authored', methods=['GET'])
+@login_required
+def authored_by_user():
+    papers = paper_controller.get_papers_auhtored_by_user(session['user_id'])
+    return render_template('user_authored.html', title="Paper", papers=papers)
+
+
+@app.route('/to_review', methods=['GET'])
+@login_required
+def to_review_by_user():
+    papers = paper_controller.get_papers_to_review_by_user(session['user_id'])
+    return render_template('to_review.html', title="Paper", papers=papers)

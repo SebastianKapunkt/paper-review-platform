@@ -5,9 +5,12 @@
     <link rel="stylesheet" href="/static/styles/nav.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="/static/styles/dropdown.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="/static/styles/paper.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
-    <link rel="stylesheet" href="/static/styles/material_input.css?q=1280549780" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="/static/styles/select-box.css?q=1280549780" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="/static/styles/signinup.css?q=1280549780" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="/static/styles/material_input.css?q=1280549780" type="text/css" media="screen" charset="utf-8"
+    />
+    <link rel="stylesheet" href="/static/styles/select-box.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/static/styles/signinup.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/static/styles/radio-group.css?q=1280549780" type="text/css" media="screen" charset="utf-8"
+    />
     <script type="text/javascript" src="/static/jquery.min.js"></script>
 
     <script>
@@ -24,6 +27,14 @@
             }
             if (/signin/.test(loc)) {
                 $('#signin').addClass('active');
+            }
+            if (/authored/.test(loc)){
+                $('#submitted').addClass('active');
+                $('#overview').addClass('active');
+            }
+            if (/to_review/.test(loc)){
+                $('#to_review').addClass('active');
+                $('#overview').addClass('active');
             }
         });
     </script>
@@ -56,7 +67,7 @@
             sortSelect(to);
             sortSelect(from);
         }
-        
+
         function sortSelect(selElem) {
             var tmpAry = new Array();
             for (var i = 0; i < selElem.options.length; i++) {
@@ -86,7 +97,7 @@
                 <div class="dropdown">
                     <div class="dropbtn">{{session.username}} &#x25BE;</div>
                     <div class="dropdown-content">
-                        <a href="/">Profile</a>
+                        <a href="/">Overview</a>
                         <a href="/signout">Logout</a>
                     </div>
                 </div>
@@ -101,6 +112,13 @@
         {% if session.logged_in %}
         <div class="nav">
             <div>
+                <div id="overview">
+                    <a href="{{ url_for('root') }}">
+                        <div>
+                            Overview
+                        </div>
+                    </a>
+                </div>
                 <div id="paper_link">
                     <a href="{{ url_for('paper') }}">
                         <div>

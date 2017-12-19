@@ -23,7 +23,7 @@ class User_Controller:
         """ Authenticate the User by Email and Password """
         user = User.query.filter_by(email=email).first()
         if sha256_crypt.verify(str(password), user.password):
-            return {'id': user.id, 'username': user.username}
+            return {'user_id': user.id, 'username': user.username}
         else:
             return None
 
@@ -45,10 +45,9 @@ class User_Controller:
 
         for user in users:
             if user.role != 'admin':
-                users_dict.append({'id': user.id, 'username': user.username})
+                users_dict.append({'user_id': user.id, 'username': user.username})
 
         return users_dict
 
     def list(self):
         return User.query.all()
-        

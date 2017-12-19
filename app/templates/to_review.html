@@ -1,0 +1,24 @@
+{% extends "paper_bar.html" %} {% block paper_content %}
+<div class="container paper-container">
+    <div>
+        <div>Title</div>
+        <div>Authors</div>
+        <div>score</div>
+    </div>
+    {% for paper in papers %}
+    <a href="/paper/{{paper['paper'].id}}/review">
+        <div>
+            <div>{{paper['paper'].title}}</div>
+            <div>
+                {% for author in paper['paper'].authors %}
+                <div>
+                    {{author.user.username}}
+                </div>
+                {% endfor %}
+            </div>
+            <div>{{paper['score']}}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

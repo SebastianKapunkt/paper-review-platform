@@ -1,6 +1,10 @@
 {% extends "layout.html" %} {% block content %}
 <div class="paper_bar">
-    <div>submitted</div>
-    <div>to review</div>
+    <a href="{{ url_for('authored_by_user') }}">
+        <div id="submitted">submitted</div>
+    </a>
+    <a href="{{ url_for('to_review_by_user') }}">
+        <div id="to_review">to review</div>
+    </a>
 </div>
 {% block paper_content %} {% endblock %} {% endblock %}

@@ -1,10 +1,30 @@
 .paper_bar {
   display: flex;
   flex-flow: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.paper_bar a {
+  flex-grow: 1;
+  color: black;
+  text-decoration: none;
+  justify-content: center;
+  display: flex;
+}
+
+.paper_bar > a > div{
+  width: 90%;
+  text-align: center;
+  padding: 12px;
   border: 1px solid #dde0e5;
   border-radius: 3px;
-  margin-top: 20px;
+  background: #f6f8fa;
+}
+
+.paper_bar > a > div:hover{
+  background: lightseagreen;
+  color: white;
 }
 
 .paper_bar > div {
@@ -28,13 +48,7 @@
   padding: 12px;
   display: flex;
   flex-flow: row;
-  justify-content: space-between
-}
-
-.paper-container > div > div:last-child,
-.paper-container a > div > div:last-child {
-  min-width: 100px;
-  text-align: center;
+  justify-content: space-between;
 }
 
 .paper-container a {
@@ -47,16 +61,24 @@
   color: white;
 }
 
-.paper-container > a > div > div {
-  padding: 4px;
-}
-
 .paper-container > div {
   background: #f6f8fa;
   padding: 12px;
   display: flex;
   flex-flow: row;
-  justify-content: space-between;
+}
+
+.paper-container > div > div:first-child,
+.paper-container > a > div > div:first-child {
+  flex-grow: 1;
+}
+
+.paper-container > div > div:nth-child(2),
+.paper-container > div > div:nth-child(3),
+.paper-container a > div > div:nth-child(2),
+.paper-container a > div > div:nth-child(3){
+  min-width: 100px;
+  text-align: center;
 }
 
 .show-paper {
@@ -69,6 +91,7 @@
   border: thin solid #dde0e5;
   border-radius: 3px;
   margin-bottom: 4px;
+  width: 100%;
 }
 
 .paper-user > div:hover {
@@ -98,26 +121,26 @@
   padding: 8px;
 }
 
-.paper-flow{
+.paper-flow {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
 }
 
-.left-side{
+.left-side {
   margin-right: 4px;
   max-width: 800px;
   width: 100%;
 }
 
-.right-side{
+.right-side {
   display: flex;
   flex-flow: column;
   flex-grow: 1;
   max-width: 200px;
 }
 
-button{
+button {
   background: #f6f8fa;
   cursor: pointer;
   border: thin solid #dde0e5;
@@ -125,18 +148,18 @@ button{
   border-radius: 3px;
 }
 
-button:hover{
+button:hover {
   background: lightseagreen;
   color: white;
 }
 
-.show-review{
+.show-review {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
 }
 
-.paper-flow button{
+.paper-flow button {
   margin-left: 20px;
   margin-bottom: 6px;
 }
