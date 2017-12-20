@@ -4,6 +4,7 @@
         <div>Title</div>
         <div>Reviewer</div>
         <div>Authors</div>
+        <div>Status</div>
         <div>Score</div>
     </div>
     {% for paper in papers %}
@@ -24,6 +25,7 @@
                 </div>
                 {% endfor %}
             </div>
+            <div>{{paper.get_status()}}</div>
             <div>{{paper.get_score()}}</div>
         </div>
     </a>

@@ -26,6 +26,12 @@
             </div>
             {% endfor %}
         </div>
+        <div class="item-container paper-user">
+            <div>Status</div>
+            <div>
+                {{paper.get_status()}}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

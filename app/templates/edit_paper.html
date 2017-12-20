@@ -33,9 +33,24 @@
             </div>
         </div>
         <div class="right-side">
-            <button type="submit" name="submit" value="redirect">save and continue</button>
-            <button type="submit" name="submit" value="save">save</button>
-            <button type="submit" name="submit" value="cancel">cancel</button>
+            <div class="item-container">
+                <div>Actions</div>
+                <div>
+                    <button type="submit" name="submit" value="redirect">save and continue</button>
+                </div>
+                <div>
+                    <button type="submit" name="submit" value="save">save</button>
+                </div>
+                <div>
+                    <button type="submit" name="submit" value="cancel">cancel</button>
+                </div>
+            </div>
+            <div class="item-container paper-user">
+                <div>Status</div>
+                <div>
+                    {{paper.get_status()}}
+                </div>
+            </div>
         </div>
     </form>
 </div>

@@ -129,11 +129,12 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 .left-side {
   margin-right: 4px;
-  max-width: 800px;
+  max-width: 750px;
   width: 100%;
 }
 
@@ -163,7 +164,6 @@ button:hover {
   justify-content: space-between;
 }
 
-.paper-flow button {
-  margin-left: 20px;
-  margin-bottom: 6px;
+.item-container > div > button {
+  width: 100%;
 }

@@ -3,6 +3,7 @@
 /* form starting stylings ------------------------------- */
 .group {
   position: relative;
+  padding-right: 17px;
 }
 .group input,
 .group textarea {

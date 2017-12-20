@@ -6,9 +6,6 @@
             <div class="item-container">
                 <div>
                     <div>Title</div>
-                    <a href="/paper/{{paper.id}}/edit">
-                        <div>Edit</div>
-                    </a>
                 </div>
                 <div>{{paper.title}}</div>
             </div>
@@ -35,9 +32,31 @@
                     {% endfor %}
                 </select>
             </div>
-
+            <div>Set status</div>
+            <br>
+            <button type="submit" name="submit" value="approve"> approve </button>
+            <button type="submit" name="submit" value="reject"> reject </button>
+            <button type="submit" name="submit" value="under_review"> review </button>
         </div>
         <div class="right-side">
+            <div class="item-container">
+                <div>Actions</div>
+                <div>
+                    <button type="submit" name="submit" value="save">save and continue</button>
+                </div>
+                <div>
+                    <button type="submit" name="submit" value="redirect">save</button>
+                </div>
+                <div>
+                    <button type="submit" name="submit" value="cancel">cancel</button>
+                </div>
+            </div>
+            <div class="item-container paper-user">
+                <div>Status</div>
+                <div class="show-review">
+                    <div>{{paper.get_status()}}</div>
+                </div>
+            </div>
             <div class="item-container paper-user">
                 <div>Authors</div>
                 {% for author in paper.authors %}
@@ -59,13 +78,6 @@
                 </div>
                 {% endfor %}
             </div>
-            <button type="submit" name="submit" value="save">save and continue</button>
-            <button type="submit" name="submit" value="redirect">save</button>
-            <button type="submit" name="submit" value="cancel">cancel</button>
-        </div>
-        <div class="">
-            <button type="submit" name="submit" value="approve"> approve </button>
-            <button type="submit" name="submit" value="reject"> reject </button>
         </div>
     </form>
 </div>

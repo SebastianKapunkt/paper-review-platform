@@ -205,8 +205,8 @@ def authored_by_user():
 @app.route('/to_review', methods=['GET'])
 @login_required
 def to_review_by_user():
-    papers = paper_controller.get_papers_to_review_by_user(session['user_id'])
-    return render_template('to_review.html', title="Paper", papers=papers)
+    paper_dicts = paper_controller.get_papers_to_review_by_user(session['user_id'])
+    return render_template('to_review.html', title="Paper", paper_dicts=paper_dicts)
 
 
 @app.route('/conference_chair', methods=['GET'])
@@ -251,6 +251,8 @@ def council_edit_paper(paper_id):
             paper_controller.set_paper_status(paper, 2)
         elif(submit == 'reject'):
             paper_controller.set_paper_status(paper, 1)
+        elif(submit == 'under_review'):
+            paper_controller.set_paper_status(paper, 0)
 
         if(submit == "redirect"):
             return redirect(url_for('conference_chair'))

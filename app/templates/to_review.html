@@ -3,20 +3,22 @@
     <div>
         <div>Title</div>
         <div>Authors</div>
+        <div>Status</div>
         <div>Score</div>
     </div>
-    {% for paper in papers %}
-    <a href="/paper/{{paper['paper'].id}}/review">
+    {% for paper_dict in paper_dicts %}
+    <a href="/paper/{{paper_dict['paper'].id}}/review">
         <div>
-            <div>{{paper['paper'].title}}</div>
+            <div>{{paper_dict['paper'].title}}</div>
             <div>
-                {% for author in paper['paper'].authors %}
+                {% for author in paper_dict['paper'].authors %}
                 <div>
                     {{author.user.username}}
                 </div>
                 {% endfor %}
             </div>
-            <div>{{paper['score']}}</div>
+            <div>{{paper_dict['paper'].get_status()}}</div>
+            <div>{{paper_dict['score']}}</div>
         </div>
     </a>
     {% endfor %}
