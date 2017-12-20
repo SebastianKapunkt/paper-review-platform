@@ -82,9 +82,13 @@ class Paper_Controller:
             paper.title = title
         if abstract:
             paper.abstract = abstract
+        # this checks if authors are not empty or None 
+        # (means there must be at least one author)
         if collaborators:
             self.merge_authors(paper, collaborators)
-        if reviewer:
+        # checks if reviwer is not None
+        # (means also reviews can be empty)
+        if reviewer is not None:
             self.merge_reviewer(paper, reviewer)
 
         db.session.commit()
