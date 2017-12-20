@@ -1,6 +1,5 @@
 from app import db
 
-
 class Author(db.Model):
     __tablename__ = 'authors'
     id = db.Column(db.Integer, primary_key=True)
@@ -32,6 +31,14 @@ class Paper(db.Model):
             return round(summary / reviewd, 2)
         else:
             return None;
+
+    def get_status(self):
+        if self.status == 2:
+            return 'Approved'
+        elif self.status == 1:
+            return 'Rejected'
+        else:
+            return 'Under Review'
 
 
 class Review(db.Model):

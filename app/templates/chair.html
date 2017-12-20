@@ -5,7 +5,6 @@
         <div>Reviewer</div>
         <div>Authors</div>
         <div>Score</div>
-        <div>Status</div>
     </div>
     {% for paper in papers %}
     <a href="{{url_for('council_edit_paper', paper_id=paper.id)}}">
@@ -26,7 +25,6 @@
                 {% endfor %}
             </div>
             <div>{{paper.get_score()}}</div>
-            <div>{{paper.status}}</div>
         </div>
     </a>
     {% endfor %}

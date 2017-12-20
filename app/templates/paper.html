@@ -3,6 +3,7 @@
     <div>
         <div>Title</div>
         <div>Authors</div>
+        <div>Status</div>
     </div>
     {% for paper in papers %}
     <a href="/paper/{{paper.id}}/">
@@ -15,6 +16,7 @@
                 </div>
                 {% endfor %}
             </div>
+            <div>{{paper.get_status()}}</div>
         </div>
     </a>
     {% endfor %}

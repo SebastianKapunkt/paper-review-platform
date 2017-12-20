@@ -4,7 +4,6 @@ from app.models import User
 from app import user_controller, paper_controller, role_controller
 from app.decorators import login_required, requires_roles
 
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """renders the signup form when /signup is called"""
@@ -102,8 +101,6 @@ def edit_paper(paper_id):
         abstract = request.form['abstract']
         submit = request.form['submit']
         collaborators = request.form.getlist('collaborators')
-
-        print(collaborators)
 
         if(submit != "cancel"):
             paper_controller.save_paper(
@@ -250,7 +247,13 @@ def council_edit_paper(paper_id):
                 reviwers
             )
 
+        if(submit == 'approve'):
+            paper_controller.set_paper_status(paper, 2)
+        elif(submit == 'reject'):
+            paper_controller.set_paper_status(paper, 1)
+
         if(submit == "redirect"):
             return redirect(url_for('conference_chair'))
         else:
             return redirect(url_for('council_edit_paper', paper_id=paper_id))
+        

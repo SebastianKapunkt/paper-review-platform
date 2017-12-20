@@ -49,7 +49,6 @@ class Paper_Controller:
         user_review = None
         for review in paper.reviews:
             if review.user.id == user_id:
-                print(review.user)
                 user_review = review
         return user_review
 
@@ -99,7 +98,6 @@ class Paper_Controller:
 
         new_author = (lambda: Author())
 
-        print("-- authors --")
         self.merge_generic(paper, collaborators, paper.authors,
                            author_query, new_author)
 
@@ -112,7 +110,6 @@ class Paper_Controller:
 
         new_review = (lambda: Review())
 
-        print("-- reviewer --")
         self.merge_generic(paper, reviewer, paper.reviews,
                            review_query, new_review)
 
@@ -149,3 +146,7 @@ class Paper_Controller:
         for author in items:
             authors_user.append(author.user)
         return authors_user
+
+    def set_paper_status(self, paper, status):   
+        paper.status = status
+        db.session.commit()
