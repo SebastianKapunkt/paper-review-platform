@@ -5,6 +5,7 @@
     - [Database-Schema](#Database-Schema)
     - [Used Pattern for app structure](#Used-Pattern-for-app-structure)
     - [Design Decisions](#Design-Decisions)
+    - [API Access Points](#API-Access-Points)
     - [Outlook](#Outlook)
 2. [Setting up the project](#3.-Setting-up-the-project)
 3. [Instruction for use of website](#2.-Instruction-for-use-of-website)
@@ -66,6 +67,44 @@ We went the with Model-View-Control(MVC) pattern for this application.
 The whole design of the pages was done with pure css and supports mobile usage, but are not meant for mobile usage.
 
 We focused strongly on the aspect of reusablity of css and html code through inheritance of flasks-jinja2 templates
+
+## API Access Points
+* @app.route('/signup', methods=['GET', 'POST'])
+    * Url to request a singup
+* @app.route('/signin', methods=['GET', 'POST'])
+    * Url to request a signin
+* @app.route('/signout')
+    * Url to request a signout and cleanup of user specific information
+* @app.route('/')
+    * Root url to handle redirects for specific cases
+* @app.route('/submission')
+    * Url to request the form to submit a paper
+* @app.route('/paper')
+    * Getter url for all papers in the Application
+* @app.route('/paper/create', methods=['POST'])
+    * Post url to validate the form passed by the /paper and store it in the Database
+* @app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
+    * Url to request a specifc paper
+    * Returns a form to edit and store the paper only if the requester is registered as and author
+    * Stores it back into the database on submit
+* @app.route('/paper/<int:paper_id>/', methods=['GET'])
+    * Read-only url for a single paper
+* @app.route('/admin', methods=['GET'])
+    * Administration page for user-roles, Admin only
+* @app.route('/admin/set-role', methods=['POST'])
+    * Post url to store the form information of the /admin page into the Database
+* @app.route('/paper/<int:paper_id>/review', methods=['POST', 'GET'])
+    * Url for reviewers to get assigned paper without write acess
+    * Able to give a score and store it in the review
+* @app.route('/authored', methods=['GET'])
+    * Url to get all the papers submitted by the authenticated user
+* @app.route('/to_review', methods=['GET'])
+    * Url to get all the assigned papers to the reviewer
+* @app.route('/conference_chair', methods=['GET'])
+    * Url for the conference chair to admister submitted papers
+* @app.route('/paper/<int:paper_id>/council/edit', methods=['GET', 'POST'])
+    * Url for the council to assign reviewers and set status of the paper itself (accepted, rejected, under review)
+    * Only read-access to the paper
 
 ## Outlook
 The current version of the website is just the first step - MVP. There are a lot of points that can be extended to increase the user experience and should be considered in the future.
