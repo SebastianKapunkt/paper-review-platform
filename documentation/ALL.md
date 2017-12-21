@@ -1,0 +1,275 @@
+# Talbe of Content
+
+1. [Technical Documentation](#1.-Technical-Documentation)
+    - [Developer Tools and Decorator Class](#Developer-Tools-and-Decorator-Class)
+    - [Database-Schema](#Database-Schema)
+    - [Used Pattern for app structure](#Used-Pattern-for-app-structure)
+    - [Design Decisions](#Design-Decisions)
+    - [Outlook](#Outlook)
+2. [Setting up the project](#3.-Setting-up-the-project)
+3. [Instruction for use of website](#2.-Instruction-for-use-of-website)
+    - [Registration](#Registration)
+    - [Login](#Login)
+    - [Logout](#Logout) 
+    - [Submitting a paper](#Submitting-a-paper)
+    - [Paper list/detail/edit](#Paper-list/detail/edit)
+        - [List of all paper](#list-of-all-paper)
+        - [Paper detail view](#paper-detail-view)
+        - [Paper edit](#paper-edit)
+    - [User overview page & review](#user-overview-page-and-review)
+        - [User overview page](#user-overview-page)
+        - [Submitted paper](#submitted-paper)
+        - [Papers to review](#papers-to-review)
+        - [Review a paper](#review-a-paper)
+    - [Conference Chair](#Conference-chair)
+        - [List of paper](#list-of-paper)
+        - [Work view for the conference chair](#work-view-for-the-conference-chair)
+
+# 1. Technical Documentation 
+
+This Project was Developed as a part of a Univeristy exercise and is a platform to publish, rate and validate papers.
+It was developed in Python Flask only and does not contain any additional libaries.
+
+## Developer Tools and Decorator Class
+* The helper class url_for, was created to make it possible to get around the caching of the browsers. It is mainly meant for development purposes since it makes it easier to debug and test css styling on the fly.
+* The decorator class, brings functionality such as login_required and required_role. This makes authentication and authorization requirements for parts of the application much easier.
+
+## Database-Schema 
+![alt text](picture/uml_diagram.png)
+
+The database-schema on which this application was developed of, constists of five tables: 'users', 'papers', 'reviews', 'authors' and 'roles'.
+You can see the relational quantities and the contents of the tables in the detailed uml-diagram above.
+
+Once the schema was set it was pretty straight forward to setup the Models. The reason we decided to seperate the Author and Review tables, was to simplify the relations between the user and paper to the review and author. This way it made it is easier to use and manage the relations since additional information could be stored in either table if required.
+</br>
+
+## Used Pattern for app structure
+We went the with Model-View-Control(MVC) pattern for this application.
+
+* Model
+    * Our models are the database representations of the tables.
+    * To improve performance minor tweaks could have been done to the paper model since it contains functionality which should be in the controllers, the functions mentioned here are the: get status and get score functions
+* Control
+    * The main controller is the views.py
+        * Redirect requests and general form request are processed here
+        * It is responsible to process every incomming query, request and only return processed data to the view
+        * Helper controllers such as user_controller, paper_controller and role_controller were written to abstract functionality and handle database specific queries
+* View
+    * The views are the jinja2 templates which display the data delived by the controllers, which get rendered through flasks render_template method
+
+## Design Decisions
+The whole design of the pages were done manually and support mobile usage, but are not meant for mobile usage.
+
+We focused strongly on the aspect reusablity of css and html code through inheritance of jinja2 templates.
+
+## Outlook
+The current version of the website is just the first step - MVP. There are a lot of points that can be extended to increase the user experience and should be considered in the future.
+
+* Improved ui for mobile
+* Extend usablity of the website by working together with the user.
+    * example: Select boxes for assigning reviwer, allow double click to assign.
+* More validation on all forms and fields
+    * example: Minum lenght for title & abstract
+* Feedback about wrong input (Currently its mostly the happy path).
+* Upload for the file of the paper
+    * A way to display the paper on the website
+* More concret Role description. 
+    * What is a normal user allowed to see & change.
+        * Can only create papers for him self?
+        * Only the intial creator can add authors and can not be removed?
+    * What can the conference chair do? 
+        * Creation of paper?
+        * Nominate new conference chair member?
+* User & Invitation system.
+    * User can send invation to co-authors of their paper, that are not yet registred on the page.
+    * Profile page of user, where other user can see the papers of them.
+    * Profile page with avatar and some comments from the user.
+
+# 3. Setting up the project
+
+download the repository
+
+    git@github.com:SebastianKapunkt/paper-review-platform.git
+
+cd into the project folder
+
+    cd paper-review-platform
+
+install requirements
+
+    pip install -r requirements.txt
+
+set envirement varaible
+
+    export FLASK_APP=app/__init__.py
+
+# 2. Instruction for use of website
+
+## Registration
+
+Information required to create an account:
+- a username
+- firstname
+- lastname
+- email
+- password
+
+You can find the signup page here or under ```/signup```
+
+<img src="picture/tab_signup.png" height="80">
+
+please enter the require information into the form:
+
+<img src="picture/signup_form.png" height="400">
+
+## Login 
+
+To signin you need to enter your e-mail and password. You can find the Login under ```/signin```
+
+<img src="picture/signin.png" height="300">
+
+## Logout 
+
+You can find the logout in he top right of the page, in a dropdown by hovering your name. Or go to ```/signout```
+
+<img src="picture/logout.png" width="650">
+
+## Submitting a paper
+
+For submitting a paper you go to ```/submission``` or find the tap in the navigation bar:
+
+<img src="picture/submission.png" height="50">
+
+Now you can See the form.
+1. Field for the title of the paper.
+2. Field for the abstract of the paper.
+3. A list of people that can be authors. Note here that if you don't select any author, you will be the author automaticly. To assign someone as a author select a user and press on the button 'Add'(4).
+4. Buttons to push items from one box to the other. 'Add' will push selected item from left to right and 'Remove' the other way around.
+5. This is the list of selected authors. Only the user in that list will be author, don't forget your self if you are one!
+6. Once everything is filled you can submit 'create' the paper.
+
+<img src="picture/submission_form.png" width="650">
+
+## Paper list/detail/edit
+### List of all paper
+All papers that were submitted on this plattform are listed here and shown in reveresd chronological order, latest first
+
+The list of paper can be found here: ```/paper``` or in the navigation bar:
+
+<img src="picture/paper_nav.png" height="50">
+
+1. Column for title of paper
+2. Column for list of authors of that paper
+3. Column for status of paper
+4. If you click on a row you come to the detail view of a paper
+
+<img src="picture/paper.png" width="650">
+
+### Paper detail view
+In this view you can find all the information that are public, to see for all user.
+
+1. Tiel of the paper.
+2. Abstract of the paper.
+3. List of the authors.
+4. Status of the paper.
+5. If you are an author, you can see the edit button and use it to get to the edit view.
+
+<img src="picture/paper_detail.png" width="650">
+
+### Paper edit
+In this view as an author you can edit your paper information. And also add or remove authors (also your self!)
+
+1. Change title of paper.
+2. Change abstract of paper.
+3. Add & Remove authors.
+4. [Save & continue] -- you save the data you changed and also stay on the page.
+5. [Save] -- you save the data you changed and go back to the detail view (As a feature request it can also be the list of papers or the users overview page).
+6. [Cancel] -- You don't save any data and just go back to the detail view (Or if requested as a change to another view).
+7. Status of the paper
+
+<img src="picture/paper_edit.png" width="650">
+
+
+## User overview page and review
+### User overview page
+This page is the landing and main page for the logged in user (you :) ) You can find it at the root "```/```" or in the navigation bar:
+
+<img src="picture/overview.png" height="70">
+
+Here you have two 'filter'/main lists of paper
+1. [Your submitted papers / where you are author](#submitted-paper)
+2. [Papers where you are assigned to review](#papers-to-review)
+
+<img src="picture/overview_bar.png" height="100">
+
+### Submitted paper
+This is a list of papers you submitted or you are an author of.
+
+1. Title of the paper.
+2. Authors of the paper.
+3. Stauts of the paper.
+3. If you click on a row you come to the detail view of the paper ([explained here](PAPERS.md)).
+
+<img src="picture/overview_submitted.png" width="650">
+
+### Papers to review
+This is a list of papers where you got requested from the conference chair to review them.
+
+1. Column title of paper.
+2. Column authors of paper.
+3. Column status of paper.
+4. Column of score of your review of that paper. It is None if you haven't reviewed it yet or has the score you have it.
+5. If you click on the row you can go to submit or change a review
+
+<img src="picture/overview_review.png" width="650">
+
+### Review a paper
+At this page you can see the papers you were requested to review
+
+<img src="picture/star-rating.gif" height="100">
+
+1. represents the rating in stars. 
+    - 1 star = -2
+    - 2 stars = -1
+    - 3 stars = 0
+    - 4 stars = 1
+    - 5 stars = 2
+2. This button will submit your review and you will stay on that page.
+3. This button will submit your review and you will be redirected to your overview page
+4. The title of the paper to review.
+5. The abstract of the paper to review.
+
+<img src="picture/review.png" width="650">
+
+## Conference Chair
+If you are a member of this group you will be able to access the 'conference chair' site.
+You can find it in the navigation bar:
+
+<img src="picture/council.png" height="70">
+
+### List of paper
+1. Column title of paper.
+2. Column reviwer of paper. This are the user that are assigned by the conference chair to review a paper.
+3. Column authors of paper.
+4. Column status of paper.
+5. Column score of review of paper. This is the average over all the scores in reviews given.
+6. When you click on a row you will come to the work view for the conference chair of that paper.
+
+<img src="picture/council_overview.png" width="650">
+
+### Work view for the conference chair
+
+1. Title of the paper.
+2. Abstract of the paper.
+3. Add & Remove reviewer. Note that if you unassign a reviwer the review is gone to, even if you add the reviwer again.
+4. Button to set the status 'approve'
+5. Button to set the status 'rejected'
+6. Button to set the status 'under_review'
+7. [save and continue] -- save changes made on the page and stay on the page.
+8. [save] -- save changed made and go back to the list of paper (conference chair).
+9. [cancel] -- save nothing and go back to list of paper (conference chair).
+10. Current status of the paper.
+11. Authors of the paper.
+12. Reviews of the paper. First row is the average score of the paper over all reviews. The following rows are the individual reviews with their scores.
+
+<img src="picture/council_edit.png" width="650">
