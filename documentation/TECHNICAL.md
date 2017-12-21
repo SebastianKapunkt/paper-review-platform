@@ -8,7 +8,7 @@ It was developed in Python Flask only and does not contain any additional libari
 * The decorator class, brings functionality such as login_required and required_role. This makes authentication and authorization requirements for parts of the application much easier.
 
 #  Database-Schema 
-![alt text](uml_diagram.png)
+![alt text](picture/uml_diagram.png)
 
 The database-schema on which this application was developed of, constists of five tables: 'users', 'papers', 'reviews', 'authors' and 'roles'.
 You can see the relational quantities and the contents of the tables in the detailed uml-diagram above.
