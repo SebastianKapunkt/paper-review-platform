@@ -7,8 +7,8 @@
     - [Design Decisions](#Design-Decisions)
     - [API Access Points](#API-Access-Points)
     - [Outlook](#Outlook)
-2. [Setting up the project](#3.-Setting-up-the-project)
-3. [Instruction for use of website](#2.-Instruction-for-use-of-website)
+2. [Setting up the project](#2.-Setting-up-the-project)
+3. [Instruction for use of website](#3.-Instruction-for-use-of-website)
     - [Registration](#Registration)
     - [Login](#Login)
     - [Logout](#Logout) 
@@ -166,7 +166,7 @@ The current version of the website is just the first step - MVP. There are a lot
     * Profile page of user, where other user can see the papers of them.
     * Profile page with avatar and some comments from the user.
 
-# 3. Setting up the project
+# 2. Setting up the project
 
 download the repository
 
@@ -184,7 +184,7 @@ set envirement varaible
 
     export FLASK_APP=app/__init__.py
 
-# 2. Instruction for use of website
+# 3. Instruction for use of website
 
 ## Registration
 
