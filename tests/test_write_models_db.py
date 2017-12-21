@@ -12,7 +12,7 @@ class Test_Write_Models(unittest.TestCase):
         Creates a new database for the unit test to use
         """
         self.app = Flask(__name__)
-        self.app.config.from_object('app.config')
+        self.app.config.from_object('app.test_config')
         db.init_app(self.app)
         with self.app.app_context():
             db.create_all()

@@ -42,6 +42,8 @@ def signin():
             session['username'] = user_dict['username']
             session['user_id'] = user_dict['user_id']
             session['role'] = user_dict['role']
+            session['first_name'] = user_dict['first_name']
+            session['last_name'] = user_dict['last_name']
             return redirect('/')
         else:
             error = 'Error wrong Username or Password'

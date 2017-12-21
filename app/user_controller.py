@@ -31,7 +31,13 @@ class User_Controller:
         user = User.query.filter_by(email=email).first()
         if user:
             if sha256_crypt.verify(str(password), user.password):
-                return {'user_id': user.id, 'username': user.username, 'role': user.role_name}
+                return {
+                    'user_id': user.id,
+                    'username': user.username,
+                    'role': user.role_name,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name
+                }
         else:
             return None
 
@@ -41,7 +47,7 @@ class User_Controller:
             user = User.query.get(user_id)
             user.role_name = role
             db.session.commit()
-    
+
     def get_current_user_role(self, user_id):
         """ Get the role of the current User which is Logged in """
         user = User.query.get(user_id)
@@ -53,7 +59,11 @@ class User_Controller:
 
         for user in users:
             if user.role_name != 'admin':
-                users_dict.append({'user_id': user.id, 'username': user.username, 'role': user.role_name})
+                users_dict.append({
+                    'user_id': user.id,
+                    'username': user.username,
+                    'role': user.role_name
+                })
 
         return users_dict
 
