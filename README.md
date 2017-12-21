@@ -25,7 +25,7 @@
     - [Conference Chair](#Conference-chair)
         - [List of paper](#list-of-paper)
         - [Work view for the conference chair](#work-view-for-the-conference-chair)
-4. [Early on Sketch](#Early-on-sketch)
+4. [Early on Sketch](#4.-Early-on-sketch)
 
 # 1. Technical Documentation 
 
@@ -355,6 +355,6 @@ You can find it in the navigation bar:
 
 <img src="picture/council_edit.png" width="650">
 
-# Early on sketch
+# 4. Early on sketch
 
 <img src="picture/paper_review_platform.png" width="750">
