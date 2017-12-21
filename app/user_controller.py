@@ -18,8 +18,9 @@ class User_Controller:
             role_name='default'
         )
 
-        user = User.query.filter_by(email=email).first()
-        if user:
+        user_with_email = User.query.filter_by(email=email).first()
+        user_with_name = User.query.filter_by(username=username).first()
+        if user_with_email or user_with_name:
             return 'exists'
         else:
             db.session.add(new_user)
