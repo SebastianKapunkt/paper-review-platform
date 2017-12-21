@@ -34,3 +34,26 @@ We went the with Model-View-Control(MVC) pattern for this application.
 The whole design of the pages were done manually and support mobile usage, but are not meant for mobile usage.
 
 We focused strongly on the aspect reusablity of css and html code through inheritance of jinja2 templates.
+
+## Outlook
+The current version of the website is just the first step - MVP. There are a lot of points that can be extended to increase the user experience and should be considered in the future.
+
+* Improved ui for mobile
+* Extend usablity of the website by working together with the user.
+    * example: Select boxes for assigning reviwer, allow double click to assign.
+* More validation on all forms and fields
+    * example: Minum lenght for title & abstract
+* Feedback about wrong input (Currently its mostly the happy path).
+* Upload for the file of the paper
+    * A way to display the paper on the website
+* More concret Role description. 
+    * What is a normal user allowed to see & change.
+        * Can only create papers for him self?
+        * Only the intial creator can add authors and can not be removed?
+    * What can the conference chair do? 
+        * Creation of paper?
+        * Nominate new conference chair member?
+* User & Invitation system.
+    * User can send invation to co-authors of their paper, that are not yet registred on the page.
+    * Profile page of user, where other user can see the papers of them.
+    * Profile page with avatar and some comments from the user.
