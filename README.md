@@ -69,42 +69,79 @@ The whole design of the pages was done with pure css and supports mobile usage, 
 We focused strongly on the aspect of reusablity of css and html code through inheritance of flasks-jinja2 templates
 
 ## API Access Points
-* @app.route('/signup', methods=['GET', 'POST'])
-    * Url to request a singup
-* @app.route('/signin', methods=['GET', 'POST'])
-    * Url to request a signin
-* @app.route('/signout')
-    * Url to request a signout and cleanup of user specific information
-* @app.route('/')
-    * Root url to handle redirects for specific cases
-* @app.route('/submission')
-    * Url to request the form to submit a paper
-* @app.route('/paper')
-    * Getter url for all papers in the Application
-* @app.route('/paper/create', methods=['POST'])
-    * Post url to validate the form passed by the /paper and store it in the Database
-* @app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
-    * Url to request a specifc paper
-    * Returns a form to edit and store the paper only if the requester is registered as and author
+
+1. Url to request a singup
+
+       @app.route('/signup', methods=['GET', 'POST'])
+
+2. Url to request a signin
+        
+       @app.route('/signin', methods=['GET', 'POST'])
+
+3. Url to request a signout and cleanup of user specific information    
+
+       @app.route('/signout')
+    
+4. Root url to display user specif information like, his submitted paper or papers he has to review
+
+       @app.route('/')
+
+5. Url to request the form to submit a paper
+
+       @app.route('/submission')
+
+6. Getter url for all papers in the application
+
+       @app.route('/paper')
+
+7. Post url to validate the form passed by the ```/submission``` and store it in the Database
+
+       @app.route('/paper/create', methods=['POST'])
+
+8. Url to request a specifc paper for edit
+
+       @app.route('/paper/<int:paper_id>/edit', methods=['POST', 'GET'])
+
+    * only if the requester is registered as and author
     * Stores it back into the database on submit
-* @app.route('/paper/<int:paper_id>/', methods=['GET'])
-    * Read-only url for a single paper
-* @app.route('/admin', methods=['GET'])
-    * Administration page for user-roles, Admin only
-* @app.route('/admin/set-role', methods=['POST'])
-    * Post url to store the form information of the /admin page into the Database
-* @app.route('/paper/<int:paper_id>/review', methods=['POST', 'GET'])
-    * Url for reviewers to get assigned paper without write acess
+    
+9. Read-only url for a single paper
+    
+       @app.route('/paper/<int:paper_id>/', methods=['GET'])
+
+10. Administration page for user-roles, Admin only
+        
+        @app.route('/admin', methods=['GET'])
+
+11. Post url to store the form information of the ```/admin``` page into the Database
+
+        @app.route('/admin/set-role', methods=['POST'])
+    
+    * only accessible by admin
+
+12. Url for a specif review
+
+        @app.route('/paper/<int:paper_id>/review', methods=['POST', 'GET'])
+    
     * Able to give a score and store it in the review
-* @app.route('/authored', methods=['GET'])
-    * Url to get all the papers submitted by the authenticated user
-* @app.route('/to_review', methods=['GET'])
-    * Url to get all the assigned papers to the reviewer
-* @app.route('/conference_chair', methods=['GET'])
-    * Url for the conference chair to admister submitted papers
-* @app.route('/paper/<int:paper_id>/council/edit', methods=['GET', 'POST'])
-    * Url for the council to assign reviewers and set status of the paper itself (accepted, rejected, under review)
-    * Only read-access to the paper
+
+13. Url to get all the papers submitted by the authenticated user
+    
+        @app.route('/authored', methods=['GET'])
+
+14. Url to get all the papers assigned for review to the current user
+        
+        @app.route('/to_review', methods=['GET'])
+
+15. Url for the conference chair to admister submitted papers
+
+        @app.route('/conference_chair', methods=['GET'])
+
+16. Url for the conference chair to assign reviewers and set status of the paper itself (accepted, rejected, under review) 
+    
+        @app.route('/paper/<int:paper_id>/council/edit', methods=['GET', 'POST'])
+
+    * Only read-access to information of the paper (title, abstract, authors)
 
 ## Outlook
 The current version of the website is just the first step - MVP. There are a lot of points that can be extended to increase the user experience and should be considered in the future.
